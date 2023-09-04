@@ -7,15 +7,24 @@ const weapons = {
   paper: {weakTo: 'scissors', strongTo: 'rock'},
   scissors: {weakTo: 'rock', strongTo: 'paper'}
 }
+const paragraph = document.querySelector('#paragraph');
+const pscore = document.querySelector('#score');
+const winner = document.querySelector('#winner');
 
-function game(){
-  let ComputerChoice=getComputerChoice().toLowerCase();
+function game(){}
+  const figures = document.querySelectorAll('.player');
+  figures.forEach((figure) => figure.addEventListener('click',function(){compare(this.dataset.figure,getComputerChoice())}));
+  
+
+
+ /* let ComputerChoice=getComputerChoice().toLowerCase();
   let PlayerChoice=getPlayerChoice().toLowerCase();
   console.log(ComputerChoice);
-  compare(PlayerChoice,ComputerChoice);
-}
+  */
+  //ompare(PlayerChoice,ComputerChoice);
+
 function getPlayerChoice(){
-  let PlayerChoice=prompt("ROUND "+round_number+": Type in your choice - Rock, Paper or Scissors:");
+
   round_number+=1;
   if(PlayerChoice != "rock" && PlayerChoice != "paper" && PlayerChoice != "scissors"){
     PlayerChoice=null;
@@ -29,7 +38,7 @@ function getPlayerChoice(){
 function getComputerChoice()
 {
     let ComputerChoice = getRandomInt(3);
-    console.log(ComputerChoice)
+    //console.log(ComputerChoice)
     switch(ComputerChoice){
       case 0:ComputerChoice="rock";
         break;
@@ -47,11 +56,26 @@ function getComputerChoice()
 function compare(PlayerChoice,ComputerChoice){
   if (weapons[PlayerChoice].strongTo === ComputerChoice){
     player_score+=1;
+    pscore.textContent = player_score;
+    if (player_score==5){
+      winner.textContent = "You won!";
+    }
+    console.log('player won');
+    
     return;
   }
 
   if (weapons[PlayerChoice].weakTo === ComputerChoice){
     computer_score+=1;
+    if (computer_score==5){
+      winner.textContent = "Computer won!";
+    }
+    console.log('computer won');
+    return;
+  }
+  if (PlayerChoice === ComputerChoice){
+    
+    console.log('tie');
     return;
   }
 
@@ -65,9 +89,6 @@ function getRandomInt(max) {
   }
 
 
-game();
-game();
-game();
-game();
-game();
-console.log(`Game finished, Player score = ${player_score}, Computer score = ${computer_score}`);
+//game();
+
+//console.log(`Game finished, Player score = ${player_score}, Computer score = ${computer_score}`);
